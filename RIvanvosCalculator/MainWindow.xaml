@@ -54,7 +54,7 @@
         <Button Grid.Row="5" Grid.Column="2" x:Name="btnDot" Click="btnDot_Click">.</Button>
 
         <!-- Display text box -->
-        <TextBox IsReadOnly="True" TextAlignment="Right" VerticalAlignment="Bottom" FontSize="30" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" MouseDoubleClick="display_Click"></TextBox>
+        <TextBox x:Name="textDisplay" IsReadOnly="True" TextAlignment="Right" VerticalAlignment="Bottom" FontSize="30" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" MouseDoubleClick="display_Click"></TextBox>
         
         
     </Grid>
