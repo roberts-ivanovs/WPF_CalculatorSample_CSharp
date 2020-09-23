@@ -93,7 +93,7 @@ namespace RIvanvosCalculator
                         this.updateDisplay();
                         return;
                     }
-                     
+
                     toDisplay += "=";
                     toDisplay += result;
                 }
@@ -132,88 +132,44 @@ namespace RIvanvosCalculator
             this.updateDisplay();
         }
 
-        private void btnDot_Click(object sender, RoutedEventArgs e)
+        private void BtnDot_Click(object sender, RoutedEventArgs e)
         {
             genericNumberClick<string>(".");
         }
 
-        private void btn0_Click(object sender, RoutedEventArgs e)
+        private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.genericNumberClick(0f);
+            float btnNumber = float.Parse(((Button)sender).Content.ToString());
+            this.genericNumberClick(btnNumber);
         }
 
-        private void btn7_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(7f);
-        }
-
-        private void btn8_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(8f);
-        }
-
-        private void btn9_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(9f);
-        }
-
-        private void btn4_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(4f);
-        }
-
-        private void btn5_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(5f);
-        }
-
-        private void btn6_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(6f);
-        }
-
-        private void btn1_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(1f);
-        }
-
-        private void btn2_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(2f);
-        }
-
-        private void btn3_Click(object sender, RoutedEventArgs e)
-        {
-            this.genericNumberClick(3f);
-        }
-
-        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnPlus_Click(object sender, RoutedEventArgs e)
         {
             this.genericOperationClick(EOperations.Plus);
         }
 
-        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnMinus_Click(object sender, RoutedEventArgs e)
         {
             this.genericOperationClick(EOperations.Minus);
         }
 
-        private void btnMult_Click(object sender, RoutedEventArgs e)
+        private void BtnMult_Click(object sender, RoutedEventArgs e)
         {
             this.genericOperationClick(EOperations.Multiply);
         }
 
-        private void btnDiv_Click(object sender, RoutedEventArgs e)
+        private void BtnDiv_Click(object sender, RoutedEventArgs e)
         {
             this.genericOperationClick(EOperations.Div);
         }
 
-        private void btnEq_Click(object sender, RoutedEventArgs e)
+        private void BtnEq_Click(object sender, RoutedEventArgs e)
         {
             this.displayResult = true;
             this.updateDisplay();
         }
 
-        private void btnClearCurrent_Click(object sender, RoutedEventArgs e)
+        private void BtnClearCurrent_Click(object sender, RoutedEventArgs e)
         {
             if (this.displayResult)
             {
@@ -230,13 +186,13 @@ namespace RIvanvosCalculator
             this.updateDisplay();
         }
 
-        private void btnClearAll_Click(object sender, RoutedEventArgs e)
+        private void BtnClearAll_Click(object sender, RoutedEventArgs e)
         {
             this.resetState();
             this.updateDisplay();
         }
 
-        private void btnDel_Click(object sender, RoutedEventArgs e)
+        private void BtnDel_Click(object sender, RoutedEventArgs e)
         {
             // Don't perform anything if we're displaying a result
             if (this.displayResult) return;
@@ -251,7 +207,7 @@ namespace RIvanvosCalculator
             this.updateDisplay();
         }
 
-        private void btnChangeSign_Click(object sender, RoutedEventArgs e)
+        private void BtnChangeSign_Click(object sender, RoutedEventArgs e)
         {
             // Don't perform anything if we're displaying a result
             if (this.displayResult) return;
