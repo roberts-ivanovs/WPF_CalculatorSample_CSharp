@@ -43,8 +43,8 @@
         <Button Grid.Row="5" Grid.Column="3" x:Name="btnEq" Click="btnEq_Click">=</Button>
 
         <!--Clear buttons -->
-        <Button Grid.Row="1" Grid.Column="0" x:Name="btnClear" Click="btnClear_Click">CE</Button>
-        <Button Grid.Row="1" Grid.Column="1" x:Name="btnEr" Click="btnEr_Click">E</Button>
+        <Button Grid.Row="1" Grid.Column="0" x:Name="btnClearCurrent" Click="btnClearCurrent_Click">CE</Button>
+        <Button Grid.Row="1" Grid.Column="1" x:Name="btnClearAll" Click="btnClearAll_Click">E</Button>
         <Button Grid.Row="1" Grid.Column="2" Content="&lt;=" x:Name="btnDel" Click="btnDel_Click"></Button>
 
         <!-- Positive amd negative button-->
@@ -54,7 +54,7 @@
         <Button Grid.Row="5" Grid.Column="2" x:Name="btnDot" Click="btnDot_Click">.</Button>
 
         <!-- Display text box -->
-        <TextBox x:Name="textDisplay" IsReadOnly="True" TextAlignment="Right" VerticalAlignment="Bottom" FontSize="30" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" MouseDoubleClick="display_Click"></TextBox>
+        <TextBox x:Name="textDisplay" IsReadOnly="True" TextAlignment="Right" VerticalAlignment="Bottom" FontSize="30" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"></TextBox>
         
         
     </Grid>

@@ -27,8 +27,8 @@ namespace RIvanvosCalculator
     public partial class MainWindow : Window
     {
         bool displayResult = false;
-        float operand1 = 0;
-        float operand2 = 0;
+        string operand1 = "";
+        string operand2 = "";
         EOperations operation = EOperations.None;
 
         public MainWindow()
@@ -36,9 +36,18 @@ namespace RIvanvosCalculator
             InitializeComponent();
         }
 
+        private void resetState()
+        {
+            this.operand1 = "";
+            this.operand2 = "";
+            this.operation = EOperations.None;
+            this.displayResult = false;
+        }
+
         // Copied over from https://stackoverflow.com/a/6052679
+        // It would be nice to hear in the next upcoming lectures on how to properly do this in C#.
         public static float Evaluate(string expression)
-        { 
+        {
             System.Data.DataTable table = new System.Data.DataTable();
             table.Columns.Add("expression", string.Empty.GetType(), expression);
             System.Data.DataRow row = table.NewRow();
@@ -73,7 +82,18 @@ namespace RIvanvosCalculator
 
                 if (displayResult)
                 {
-                    float result = Evaluate(toDisplay);
+                    float result = 0f;
+                    try
+                    {
+                        result = Evaluate(toDisplay);
+                    }
+                    catch (Exception)
+                    {
+                        this.resetState();
+                        this.updateDisplay();
+                        return;
+                    }
+                     
                     toDisplay += "=";
                     toDisplay += result;
                 }
@@ -81,34 +101,40 @@ namespace RIvanvosCalculator
             textDisplay.Text = toDisplay;
         }
 
-        private void genericNumberClick(float number)
+        private void genericNumberClick<T>(T repr)
         {
+            // reset the state if necessary
+            if (displayResult)
+            {
+                this.resetState();
+            }
+
             if (operation == EOperations.None)
             {
-                operand1 = (operand1 * 10) + number;
+                operand1 += repr.ToString();
                 textDisplay.Text = operand1.ToString();
             }
             else
             {
-                operand2 = (operand2 * 10) + number;
+                operand2 += repr.ToString();
             }
             this.updateDisplay();
         }
 
         private void genericOperationClick(EOperations operation)
         {
+            // reset the state if necessary
+            if (displayResult)
+            {
+                this.resetState();
+            }
             this.operation = operation;
             this.updateDisplay();
         }
 
-        private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void btnDot_Click(object sender, RoutedEventArgs e)
         {
-
+            genericNumberClick<string>(".");
         }
 
         private void btn0_Click(object sender, RoutedEventArgs e)
@@ -187,29 +213,65 @@ namespace RIvanvosCalculator
             this.updateDisplay();
         }
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
+        private void btnClearCurrent_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.displayResult)
+            {
+                this.resetState();
+            }
+            else if (this.operation != EOperations.None)
+            {
+                this.operand2 = "";
+            }
+            else
+            {
+                this.operand1 = "";
+            }
+            this.updateDisplay();
         }
 
-        private void btnEr_Click(object sender, RoutedEventArgs e)
+        private void btnClearAll_Click(object sender, RoutedEventArgs e)
         {
-
+            this.resetState();
+            this.updateDisplay();
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-
+            // Don't perform anything if we're displaying a result
+            if (this.displayResult) return;
+            if (this.operation == EOperations.None && this.operand1.Length > 0)
+            {
+                this.operand1 = this.operand1.Substring(0, this.operand1.Length - 1);
+            }
+            else if (this.operation != EOperations.None && this.operand2.Length > 0)
+            {
+                this.operand2 = this.operand2.Substring(0, this.operand2.Length - 1);
+            }
+            this.updateDisplay();
         }
 
         private void btnChangeSign_Click(object sender, RoutedEventArgs e)
         {
-
+            // Don't perform anything if we're displaying a result
+            if (this.displayResult) return;
+            if (this.operation == EOperations.None)
+            {
+                //this.operand1 = Evaluate("-" + this.operand1).ToString();
+                if (this.operand1 != "")
+                {
+                    this.operand1 = Evaluate("-" + this.operand1).ToString();
+                }
+            }
+            else
+            {
+                if (this.operand2 != "")
+                {
+                    this.operand2 = Evaluate("-" + this.operand2).ToString();
+                }
+            }
+            this.updateDisplay();
         }
 
-        private void display_Click(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }
