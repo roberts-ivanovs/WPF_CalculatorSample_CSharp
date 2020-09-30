@@ -73,7 +73,7 @@
     </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="DisplayLogic.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="CalculatorLogger.cs" />
     <Compile Include="CalculatorLogic.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

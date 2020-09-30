@@ -60,6 +60,8 @@ namespace RIvanvosCalculator
                     this.display.replaceCurrent(displayable);
                     break;
             }
+
+            CalculatorLogger.writeToLog(displayAction, buttonValue, displayable);
         }
     }
 }
