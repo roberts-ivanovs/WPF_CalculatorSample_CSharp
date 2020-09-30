@@ -9,9 +9,12 @@ namespace RIvanvosCalculator
 {
     class DisplayLogic
     {
-        private TextBlock oldest;
-        private TextBlock older;
-        private TextBlock current;
+        private TextBlock oldest;   // The furthest display layer
+        private TextBlock older;    // The middle display layer
+        private TextBlock current;  // The "closest" display layer
+
+        // If true, then `middle` layer display will be combined with the `current` layer on the next `replaceCurrent` call.
+        private bool combine = false;
 
         public DisplayLogic(TextBlock oldest, TextBlock older, TextBlock current)
         {
@@ -30,14 +33,22 @@ namespace RIvanvosCalculator
 
         public void appendText(string appendable)
         {
-            this.oldest.Text = this.older.Text + "=" + this.current.Text;
-            this.older.Text = "";
+            this.oldest.Text = this.older.Text;
+            this.older.Text = this.current.Text + "=";
             this.current.Text = appendable;
+            this.combine = true;
         }
 
         public void replaceCurrent(string repalcement)
         {
+            // Check if we need to save the last result
+            if (this.combine)
+            {
+                this.older.Text += this.current.Text;
+                this.combine = false;
+            }
             this.current.Text = repalcement;
         }
+
     }
 }

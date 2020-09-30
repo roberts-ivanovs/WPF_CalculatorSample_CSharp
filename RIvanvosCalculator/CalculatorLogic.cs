@@ -5,7 +5,7 @@ namespace RIvanvosCalculator
 {
     class CalculatorLogic
     {
-        public string expressionCurrent { get; set; } = "";
+        private string expressionCurrent { get; set; } = "";
         public CalculatorLogic()
         {
         }
@@ -21,25 +21,42 @@ namespace RIvanvosCalculator
             return float.Parse((string)row["expression"]);
         }
 
-        public void clearCurrent()
+        public string clearCurrent()
         {
             this.expressionCurrent = "";
+            return this.expressionCurrent;
         }
-        public void clearAll()
+        public string clearAll()
         {
             this.clearCurrent();
+            return this.expressionCurrent;
         }
-        public void result()
+        public string result()
         {
-            this.expressionCurrent = CalculatorLogic.Evaluate(this.expressionCurrent).ToString();
+            string result = "";
+            try
+            {
+                result = CalculatorLogic.Evaluate(this.expressionCurrent).ToString();
+            }
+            catch (Exception)
+            {
+                result = "ERROR";
+            }
+
+            // By returning the result and cleaning the inner memory is how we 
+            // achieve the lazy displaying of the result.
+            this.clearCurrent();
+            return result;
         }
-        public void swapSigns()
+        public string swapSigns()
         {
-            // todo figure this one out
+            this.expressionCurrent = "-(" + this.expressionCurrent + ")";
+            return this.expressionCurrent;
         }
-        public void appendExpression(String appendable)
+        public string appendExpression(String appendable)
         {
             this.expressionCurrent += appendable;
+            return this.expressionCurrent;
         }
 
     }

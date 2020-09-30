@@ -22,27 +22,28 @@ namespace RIvanvosCalculator
             Console.WriteLine("Clicked tag: " + buttonValue);
 
             EDisplayState displayAction;
+            string displayable = "";
             switch (buttonValue)
             {
                 case "clearCurrent":
-                    this.calculatorLogic.clearCurrent();
+                    displayable = this.calculatorLogic.clearCurrent();
                     displayAction = EDisplayState.CLEARCURRENT;
                     break;
                 case "clearAll":
-                    this.calculatorLogic.clearAll();
+                    displayable = this.calculatorLogic.clearAll();
                     displayAction = EDisplayState.CLEARALL;
                     break;
                 case "result":
-                    this.calculatorLogic.result();
+                    displayable = this.calculatorLogic.result();
                     displayAction = EDisplayState.APPEND;
                     break;
                 case "swapSigns":
-                    this.calculatorLogic.swapSigns();
+                    displayable = this.calculatorLogic.swapSigns();
                     displayAction = EDisplayState.REPLACE;
                     break;
                 default:
-                    // TODO make sure the buttonValue is in [0123456789./+-*%]
-                    this.calculatorLogic.appendExpression(buttonValue);
+                    // The input must be a parsable number or a decimal separator
+                    displayable = this.calculatorLogic.appendExpression(buttonValue);
                     displayAction = EDisplayState.REPLACE;
                     break;
             }
@@ -50,16 +51,16 @@ namespace RIvanvosCalculator
             switch (displayAction)
             {
                 case EDisplayState.CLEARCURRENT:
-                    this.display.appendText("");
+                    this.display.appendText(displayable);
                     break;
                 case EDisplayState.CLEARALL:
                     this.display.allEmpty();
                     break;
                 case EDisplayState.APPEND:
-                    this.display.appendText(this.calculatorLogic.expressionCurrent);
+                    this.display.appendText(displayable);
                     break;
                 case EDisplayState.REPLACE:
-                    this.display.replaceCurrent(this.calculatorLogic.expressionCurrent);
+                    this.display.replaceCurrent(displayable);
                     break;
             }
         }
