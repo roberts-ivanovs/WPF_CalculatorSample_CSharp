@@ -98,7 +98,7 @@ namespace RIvanvosCalculator
                     toDisplay += result;
                 }
             }
-            textDisplay.Text = toDisplay;
+            //textDisplay.Text = toDisplay;
         }
 
         private void genericNumberClick<T>(T repr)
@@ -112,7 +112,7 @@ namespace RIvanvosCalculator
             if (operation == EOperations.None)
             {
                 operand1 += repr.ToString();
-                textDisplay.Text = operand1.ToString();
+                //textDisplay.Text = operand1.ToString();
             }
             else
             {
