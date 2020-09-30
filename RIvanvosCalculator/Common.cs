@@ -8,6 +8,6 @@ namespace RIvanvosCalculator
 {
     public enum EDisplayState
     {
-        APPEND, REPLACE, CLEARALL, CLEARCURRENT
+        APPEND, REPLACE, CLEARALL
     }
 }

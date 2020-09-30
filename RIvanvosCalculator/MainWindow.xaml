@@ -40,14 +40,6 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonPowerOff">
-            <BeginStoryboard Storyboard="{StaticResource PowerOff}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonPowerOn">
-            <BeginStoryboard Storyboard="{StaticResource PowerOn}" />
-        </EventTrigger>
-    </Window.Triggers>
     <Border Background="{StaticResource BaseBackground}" CornerRadius="10">
         <Grid>
             <StackPanel>
@@ -315,11 +307,11 @@
                         Margin="5"
                         Click="BtnGeneric_Click"
                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                        Tag="*">
+                        Tag="clearAll">
                         <materialDesign:PackIcon
                             Width="30"
                             Height="30"
-                            Kind="Power" />
+                            Kind="Clear" />
                     </Button>
                     <Button
                         Grid.Row="4"
@@ -354,30 +346,7 @@
                             Kind="Equal" />
                     </Button>
                 </Grid>
-            </StackPanel> 
-            <Border
-                x:Name="grid"
-                Background="Black"
-                CornerRadius="10"
-                Opacity="0"
-                Visibility="Collapsed">
-                <Button
-                    x:Name="ButtonPowerOn"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Width="150"
-                    Height="150"
-                    Margin="5"
-                    BorderBrush="{StaticResource PrimaryHueMidBrush}"
-                    BorderThickness="1"
-                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                    <materialDesign:PackIcon
-                        Width="80"
-                        Height="80"
-                        Kind="Power" />
-
-                </Button>
-            </Border>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>

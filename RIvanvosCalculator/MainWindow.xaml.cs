@@ -27,7 +27,7 @@ namespace RIvanvosCalculator
             {
                 case "clearCurrent":
                     displayable = this.calculatorLogic.clearCurrent();
-                    displayAction = EDisplayState.CLEARCURRENT;
+                    displayAction = EDisplayState.REPLACE;
                     break;
                 case "clearAll":
                     displayable = this.calculatorLogic.clearAll();
@@ -50,9 +50,6 @@ namespace RIvanvosCalculator
 
             switch (displayAction)
             {
-                case EDisplayState.CLEARCURRENT:
-                    this.display.appendText(displayable);
-                    break;
                 case EDisplayState.CLEARALL:
                     this.display.allEmpty();
                     break;

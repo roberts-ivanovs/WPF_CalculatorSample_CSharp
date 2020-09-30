@@ -13,7 +13,8 @@ namespace RIvanvosCalculator
         private TextBlock older;    // The middle display layer
         private TextBlock current;  // The "closest" display layer
 
-        // If true, then `middle` layer display will be combined with the `current` layer on the next `replaceCurrent` call.
+        // If true, then `middle` layer display will be combined with 
+        // the `current` layer on the next `replaceCurrent` call.
         private bool combine = false;
 
         public DisplayLogic(TextBlock oldest, TextBlock older, TextBlock current)
@@ -36,6 +37,8 @@ namespace RIvanvosCalculator
             this.oldest.Text = this.older.Text;
             this.older.Text = this.current.Text + "=";
             this.current.Text = appendable;
+
+            // Append the `current` value to the `older` on next `replaceCurrent()` call
             this.combine = true;
         }
 
