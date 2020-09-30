@@ -14,8 +14,9 @@
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FF777777"/>
             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF222222"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#DDDDDD"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="BlanchedAlmond"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF000000"/>
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFFFF"/>
+            <SolidColorBrush x:Key="BaseBackground" Color="AliceBlue"/>
             <!-- accent -->
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FFD14C25"/>
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
