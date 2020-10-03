@@ -110,7 +110,7 @@ namespace RIvanvosCalculator
 
         private static int Factorial(int i)
         {
-            return i <= 1 ? i : i * (i - 1);
+            return i <= 1 ? i : i * Factorial(i - 1);
         }
 
 
