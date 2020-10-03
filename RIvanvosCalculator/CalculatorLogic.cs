@@ -31,17 +31,17 @@ namespace RIvanvosCalculator
         public string result()
         {
             string result = "";
-            //try
-            //{
+            try
+            {
                 // Explicitly handle factorials
                 string parsed_result = EvaluateUnknownFactorials(this.expressionCurrent);
 
                 result = CalculatorLogic.Evaluate(parsed_result).ToString();
-           // }
-           // catch (Exception)
-           // {
-           //     result = "ERROR";
-           // }
+            }
+            catch (Exception)
+            {
+                result = "ERROR";
+            }
 
             // By returning the result and cleaning the inner memory is how we 
             // achieve the lazy displaying of the result while still "clearing" 
@@ -60,6 +60,14 @@ namespace RIvanvosCalculator
             return this.expressionCurrent;
         }
 
+        public string Backspace()
+        {
+            if (this.expressionCurrent.Length > 0)
+            {
+                this.expressionCurrent = this.expressionCurrent.Substring(0, this.expressionCurrent.Length - 1);
+            }
+            return this.expressionCurrent;
+        }
 
         /* -------------- PRIVATE METHODS --------------- */
 

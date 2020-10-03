@@ -47,13 +47,17 @@ namespace RIvanvosCalculator
                     break;
                 case "CONV:EUR:USD":
                     this.calculatorLogic.appendExpression("*1.17");
-                    displayable = this.calculatorLogic.result() + "USD";
+                    displayable = this.calculatorLogic.result();
                     displayAction = EDisplayState.APPEND;
                     break;
                 case "CONV:USD:EUR":
                     this.calculatorLogic.appendExpression("*0.85");
-                    displayable = this.calculatorLogic.result() + "EUR";
+                    displayable = this.calculatorLogic.result();
                     displayAction = EDisplayState.APPEND;
+                    break;
+                case "backspace":
+                    displayable = this.calculatorLogic.Backspace();
+                    displayAction = EDisplayState.REPLACE;
                     break;
                 default:
                     // If something invalid is entered, then it will be handled by the calculator logic.
