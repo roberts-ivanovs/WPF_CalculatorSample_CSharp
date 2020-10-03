@@ -14,6 +14,8 @@ namespace RIvanvosCalculator
         {
             InitializeComponent();
             this.calculatorLogic = new CalculatorLogic();
+
+            // Bind the display widgets to the appropriate handler
             this.display = new DisplayLogic(textDisplayPrevious, textDisplayExpression, textDisplayResult);
         }
 
@@ -42,6 +44,16 @@ namespace RIvanvosCalculator
                 case "swapSigns":
                     displayable = this.calculatorLogic.swapSigns();
                     displayAction = EDisplayState.REPLACE;
+                    break;
+                case "CONV:EUR:USD":
+                    this.calculatorLogic.appendExpression("*1.17");
+                    displayable = this.calculatorLogic.result() + "USD";
+                    displayAction = EDisplayState.APPEND;
+                    break;
+                case "CONV:USD:EUR":
+                    this.calculatorLogic.appendExpression("*0.85");
+                    displayable = this.calculatorLogic.result() + "EUR";
+                    displayAction = EDisplayState.APPEND;
                     break;
                 default:
                     // If something invalid is entered, then it will be handled by the calculator logic.

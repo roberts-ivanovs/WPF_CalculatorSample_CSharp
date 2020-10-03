@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 
 namespace RIvanvosCalculator
 {
@@ -11,21 +9,14 @@ namespace RIvanvosCalculator
         private static readonly Regex FACTORTIAL_TOKEN = new Regex(@"(\d+!|\(.+\)!)");
         private string expressionCurrent { get; set; } = "";
 
+
+
+        /* -------------- PUBLIC METHODS --------------- */
         public CalculatorLogic()
         {
             this.expressionCurrent = "";
         }
 
-        // Copied over from https://stackoverflow.com/a/6052679
-        // It would be nice to hear in the next upcoming lectures on what is actually happening here.
-        private static float Evaluate(string expression)
-        {
-            System.Data.DataTable table = new System.Data.DataTable();
-            table.Columns.Add("expression", string.Empty.GetType(), expression);
-            System.Data.DataRow row = table.NewRow();
-            table.Rows.Add(row);
-            return float.Parse((string)row["expression"]);
-        }
 
         public string clearCurrent()
         {
@@ -69,21 +60,40 @@ namespace RIvanvosCalculator
             return this.expressionCurrent;
         }
 
-        /**
+
+        /* -------------- PRIVATE METHODS --------------- */
+
+
+        /* Copied over from https://stackoverflow.com/a/6052679
+         * 
+         * It would be nice to hear in the next upcoming lectures on what is actually happening here.
+         */
+        private static float Evaluate(string expression)
+        {
+            System.Data.DataTable table = new System.Data.DataTable();
+            table.Columns.Add("expression", string.Empty.GetType(), expression);
+            System.Data.DataRow row = table.NewRow();
+            table.Rows.Add(row);
+            return float.Parse((string)row["expression"]);
+        }
+
+        /*
          * Find every factorial in a substring and evaluate it. Works recursevly.
          * Once the factorial has been evaluated -> replace the expression in 
          * the input string with the calculated value, return the altered string.
          * 
          */
         private static string EvaluateUnknownFactorials(string expression)
-        { 
+        {
             Match match = FACTORTIAL_TOKEN.Match(expression);
             CaptureCollection captures = match.Captures;
             foreach (Capture capture in captures)
             {
                 // remove the '!'
-                string group_substring = capture.Value.Substring(0, capture.Value.Length - 1); 
-                
+                string group_substring = capture.Value.Substring(0, capture.Value.Length - 1);
+
+
+                // Perform recursive factorial checking if necessary
                 if (group_substring.StartsWith("(") && group_substring.EndsWith(")"))
                 {
                     string subresult = EvaluateUnknownFactorials(group_substring);
@@ -102,6 +112,7 @@ namespace RIvanvosCalculator
         {
             return i <= 1 ? i : i * (i - 1);
         }
+
 
     }
 }
