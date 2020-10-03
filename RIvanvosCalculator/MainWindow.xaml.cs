@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+
 namespace RIvanvosCalculator
 {
 
@@ -19,10 +20,11 @@ namespace RIvanvosCalculator
         private void BtnGeneric_Click(object sender, RoutedEventArgs e)
         {
             string buttonValue = (((Button)sender).Tag.ToString());
-            Console.WriteLine("Clicked tag: " + buttonValue);
+            Console.WriteLine("Clicked tag: " + buttonValue); // Left for easier debugging purposes
 
-            EDisplayState displayAction;
-            string displayable = "";
+            EDisplayState displayAction;  // How the display should be handled
+            string displayable = "";  // Represent the string to display on the next "render" for the calculator
+
             switch (buttonValue)
             {
                 case "clearCurrent":
@@ -42,12 +44,13 @@ namespace RIvanvosCalculator
                     displayAction = EDisplayState.REPLACE;
                     break;
                 default:
-                    // The input must be a parsable number or a decimal separator
+                    // If something invalid is entered, then it will be handled by the calculator logic.
                     displayable = this.calculatorLogic.appendExpression(buttonValue);
                     displayAction = EDisplayState.REPLACE;
                     break;
             }
 
+            // Handle display
             switch (displayAction)
             {
                 case EDisplayState.CLEARALL:
