@@ -6,7 +6,7 @@ namespace RIvanvosCalculator
     class CalculatorLogic
     {
 
-        private static readonly Regex FACTORTIAL_TOKEN = new Regex(@"(\d+!|\(.+\)!)");
+        private static readonly Regex FACTORTIAL_TOKEN = new Regex(@"(\d+!|(\({1}(\d|\+|\-|!)+\)!))");
         private string expressionCurrent { get; set; } = "";
 
 
@@ -31,17 +31,17 @@ namespace RIvanvosCalculator
         public string result()
         {
             string result = "";
-            try
-            {
+            //try
+            //{
                 // Explicitly handle factorials
                 string parsed_result = EvaluateUnknownFactorials(this.expressionCurrent);
 
                 result = CalculatorLogic.Evaluate(parsed_result).ToString();
-            }
-            catch (Exception)
-            {
-                result = "ERROR";
-            }
+           // }
+           // catch (Exception)
+           // {
+           //     result = "ERROR";
+           // }
 
             // By returning the result and cleaning the inner memory is how we 
             // achieve the lazy displaying of the result while still "clearing" 
@@ -81,7 +81,6 @@ namespace RIvanvosCalculator
          * Find every factorial in a substring and evaluate it. Works recursevly.
          * Once the factorial has been evaluated -> replace the expression in 
          * the input string with the calculated value, return the altered string.
-         * 
          */
         private static string EvaluateUnknownFactorials(string expression)
         {
@@ -90,27 +89,25 @@ namespace RIvanvosCalculator
             foreach (Capture capture in captures)
             {
                 // remove the '!'
-                string group_substring = capture.Value.Substring(0, capture.Value.Length - 1);
-
-
-                // Perform recursive factorial checking if necessary
-                if (group_substring.StartsWith("(") && group_substring.EndsWith(")"))
-                {
-                    string subresult = EvaluateUnknownFactorials(group_substring);
-                    int subvalue = (int)CalculatorLogic.Evaluate(subresult);
-                    group_substring = group_substring.Replace(group_substring, subvalue.ToString());
-                }
-
-                int localResult = (int)CalculatorLogic.Evaluate(group_substring);
-                localResult = CalculatorLogic.Factorial(localResult);
-                expression = expression.Replace(capture.Value, localResult.ToString());
+                string group_substring = EvaluateUnknownFactorials(capture.Value.Substring(0, capture.Value.Length - 1));
+                long localResult = (long)CalculatorLogic.Evaluate(group_substring);
+                long localResultFact = CalculatorLogic.Factorial(localResult);
+                expression = DirtyReplace(expression, localResultFact.ToString(), capture.Value, capture.Index);
             }
-            return expression;
+
+            return expression.Contains("!") ? EvaluateUnknownFactorials(expression) : expression;
         }
 
-        private static int Factorial(int i)
+        private static long Factorial(long i)
         {
             return i <= 1 ? i : i * Factorial(i - 1);
+        }
+
+        private static string DirtyReplace(string longString, string insertable, string originalSubstring, int index)
+        {
+            string substringLeft = longString.Substring(0, index);
+            string substringRight = longString.Substring(index + originalSubstring.Length);
+            return substringLeft + insertable + substringRight;
         }
 
 
