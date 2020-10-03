@@ -6,9 +6,9 @@
     xmlns:local="clr-namespace:RIvanvosCalculator"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="300"
+    Width="400"
     Height="600"
-    MinWidth="300"
+    MinWidth="400"
     MinHeight="600"
     AllowsTransparency="False"
     Background="{StaticResource BaseBackground}"
@@ -51,6 +51,7 @@
                             Foreground="{StaticResource PrimaryHueMidForegroundBrush}"
                             Style="{StaticResource MaterialDesignFlatButton}">
                             <materialDesign:PackIcon Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Kind="Menu" />
+
                         </Button>
                         <TextBlock
                             x:Name="textDisplayPrevious"
@@ -91,6 +92,7 @@
                     Fill="Gray" />
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -152,6 +154,18 @@
                             Height="30"
                             Kind="Division" />
                     </Button>
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Margin="5"
+                        Click="BtnGeneric_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Tag="!">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            Kind="Exclamation" />
+                    </Button>
 
                     <Button
                         Grid.Row="1"
@@ -200,6 +214,15 @@
                             Width="30"
                             Height="30"
                             Kind="Multiplication" />
+                    </Button>
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        Margin="5"
+                        Click="BtnGeneric_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Tag="CONV:EUR:USD">
+                        EUR&gt;USD
                     </Button>
 
                     <Button
@@ -250,6 +273,15 @@
                             Height="30"
                             Kind="Minus" />
                     </Button>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        Margin="5"
+                        Click="BtnGeneric_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Tag="CONV:USD:EUR">
+                        USD&gt;EUR
+                    </Button>
 
                     <Button
                         Grid.Row="3"
@@ -299,6 +331,15 @@
                             Height="30"
                             Kind="Plus" />
                     </Button>
+                    <Button
+                        Grid.Row="3"
+                        Grid.Column="4"
+                        Margin="5"
+                        Click="BtnGeneric_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Tag="(">
+                        (
+                    </Button>
 
                     <Button
                         x:Name="ButtonPowerOff"
@@ -344,6 +385,15 @@
                             Width="30"
                             Height="30"
                             Kind="Equal" />
+                    </Button>
+                    <Button
+                        Grid.Row="4"
+                        Grid.Column="4"
+                        Margin="5"
+                        Click="BtnGeneric_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                        Tag=")">
+                        )
                     </Button>
                 </Grid>
             </StackPanel>
