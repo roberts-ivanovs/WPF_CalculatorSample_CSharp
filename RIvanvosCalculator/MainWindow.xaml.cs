@@ -30,29 +30,29 @@ namespace RIvanvosCalculator
             switch (buttonValue)
             {
                 case "clearCurrent":
-                    displayable = this.calculatorLogic.clearCurrent();
+                    displayable = this.calculatorLogic.ClearCurrent();
                     displayAction = EDisplayState.REPLACE;
                     break;
                 case "clearAll":
-                    displayable = this.calculatorLogic.clearAll();
+                    displayable = this.calculatorLogic.ClearAll();
                     displayAction = EDisplayState.CLEARALL;
                     break;
                 case "result":
-                    displayable = this.calculatorLogic.result();
+                    displayable = this.calculatorLogic.Result();
                     displayAction = EDisplayState.APPEND;
                     break;
                 case "swapSigns":
-                    displayable = this.calculatorLogic.swapSigns();
+                    displayable = this.calculatorLogic.SwapSigns();
                     displayAction = EDisplayState.REPLACE;
                     break;
                 case "CONV:EUR:USD":
-                    this.calculatorLogic.appendExpression("*1.17");
-                    displayable = this.calculatorLogic.result();
+                    this.calculatorLogic.AppendExpression("*1.17");
+                    displayable = this.calculatorLogic.Result();
                     displayAction = EDisplayState.APPEND;
                     break;
                 case "CONV:USD:EUR":
-                    this.calculatorLogic.appendExpression("*0.85");
-                    displayable = this.calculatorLogic.result();
+                    this.calculatorLogic.AppendExpression("*0.85");
+                    displayable = this.calculatorLogic.Result();
                     displayAction = EDisplayState.APPEND;
                     break;
                 case "backspace":
@@ -61,7 +61,7 @@ namespace RIvanvosCalculator
                     break;
                 default:
                     // If something invalid is entered, then it will be handled by the calculator logic.
-                    displayable = this.calculatorLogic.appendExpression(buttonValue);
+                    displayable = this.calculatorLogic.AppendExpression(buttonValue);
                     displayAction = EDisplayState.REPLACE;
                     break;
             }
@@ -70,13 +70,13 @@ namespace RIvanvosCalculator
             switch (displayAction)
             {
                 case EDisplayState.CLEARALL:
-                    this.display.allEmpty();
+                    this.display.AllEmpty();
                     break;
                 case EDisplayState.APPEND:
-                    this.display.appendText(displayable);
+                    this.display.AppendText(displayable);
                     break;
                 case EDisplayState.REPLACE:
-                    this.display.replaceCurrent(displayable);
+                    this.display.ReplaceCurrent(displayable);
                     break;
             }
 

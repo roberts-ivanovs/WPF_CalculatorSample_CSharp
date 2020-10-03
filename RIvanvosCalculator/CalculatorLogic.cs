@@ -7,66 +7,69 @@ namespace RIvanvosCalculator
     {
 
         private static readonly Regex FACTORTIAL_TOKEN = new Regex(@"(\d+!|(\({1}(\d|\+|\-|!)+\)!))");
-        private string expressionCurrent { get; set; } = "";
+        private string ExpressionCurrent { get; set; } = "";
 
 
 
         /* -------------- PUBLIC METHODS --------------- */
         public CalculatorLogic()
         {
-            this.expressionCurrent = "";
+            this.ExpressionCurrent = "";
         }
 
 
-        public string clearCurrent()
+        public string ClearCurrent()
         {
-            this.expressionCurrent = "";
-            return this.expressionCurrent;
+            this.ExpressionCurrent = "";
+            return this.ExpressionCurrent;
         }
-        public string clearAll()
+        public string ClearAll()
         {
-            this.clearCurrent();
-            return this.expressionCurrent;
+            this.ClearCurrent();
+            return this.ExpressionCurrent;
         }
-        public string result()
+        public string Result()
         {
             string result = "";
             try
             {
                 // Explicitly handle factorials
-                string parsed_result = EvaluateUnknownFactorials(this.expressionCurrent);
+                string parsed_result = EvaluateUnknownFactorials(this.ExpressionCurrent);
 
                 result = CalculatorLogic.Evaluate(parsed_result).ToString();
+                this.ExpressionCurrent = result;
             }
             catch (Exception)
             {
+                this.ClearCurrent();
                 result = "ERROR";
             }
+
 
             // By returning the result and cleaning the inner memory is how we 
             // achieve the lazy displaying of the result while still "clearing" 
             // the screen once new numbers get pressed
-            this.clearCurrent();
+            //this.ClearCurrent();
             return result;
         }
-        public string swapSigns()
+        public string SwapSigns()
         {
-            this.expressionCurrent = "-(" + this.expressionCurrent + ")";
-            return this.expressionCurrent;
+            this.ExpressionCurrent = "-(" + this.ExpressionCurrent + ")";
+            return this.ExpressionCurrent;
         }
-        public string appendExpression(String appendable)
+        public string AppendExpression(String appendable)
         {
-            this.expressionCurrent += appendable;
-            return this.expressionCurrent;
+            this.ExpressionCurrent += appendable;
+            return this.ExpressionCurrent;
         }
 
         public string Backspace()
         {
-            if (this.expressionCurrent.Length > 0)
+            if (this.ExpressionCurrent.Length > 0)
             {
-                this.expressionCurrent = this.expressionCurrent.Substring(0, this.expressionCurrent.Length - 1);
+                this.ExpressionCurrent = this.ExpressionCurrent.Substring(0, this.ExpressionCurrent.Length - 1);
             }
-            return this.expressionCurrent;
+            return this.ExpressionCurrent;
         }
 
         /* -------------- PRIVATE METHODS --------------- */
@@ -111,6 +114,10 @@ namespace RIvanvosCalculator
             return i <= 1 ? i : i * Factorial(i - 1);
         }
 
+        /*
+         * Replace a substring within the `longString` located at `index` with the length 
+         * of `originalSubstring` and a new value of `insertable`.
+         */
         private static string DirtyReplace(string longString, string insertable, string originalSubstring, int index)
         {
             string substringLeft = longString.Substring(0, index);

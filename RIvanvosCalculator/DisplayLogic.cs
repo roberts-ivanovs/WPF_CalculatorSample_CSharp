@@ -22,17 +22,17 @@ namespace RIvanvosCalculator
             this.oldest = oldest;
             this.older = older;
             this.current = current;
-            this.allEmpty();
+            this.AllEmpty();
         }
 
-        public void allEmpty()
+        public void AllEmpty()
         {
             this.oldest.Text = "";
             this.older.Text = "";
             this.current.Text = "";
         }
 
-        public void appendText(string appendable)
+        public void AppendText(string appendable)
         {
             this.oldest.Text = this.older.Text;
             this.older.Text = this.current.Text + "=";
@@ -42,7 +42,7 @@ namespace RIvanvosCalculator
             this.combine = true;
         }
 
-        public void replaceCurrent(string repalcement)
+        public void ReplaceCurrent(string repalcement)
         {
             // Check if we need to save the last result
             if (this.combine)
