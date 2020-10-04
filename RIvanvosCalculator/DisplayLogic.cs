@@ -17,6 +17,10 @@ namespace RIvanvosCalculator
         // the `current` layer on the next `replaceCurrent` call.
         private bool combine = false;
 
+        /**
+         * Register the TextBlock instances that will be altered as 
+         * the `DisplayLogic` methods get called.
+         */
         public DisplayLogic(TextBlock oldest, TextBlock older, TextBlock current)
         {
             this.oldest = oldest;
