@@ -8,7 +8,7 @@ namespace RIvanvosCalculator
 {
     class CalculatorLogger
     {
-        public static void writeToLog(EDisplayState displayState, string clickedTag, string displayable )
+        public static void writeToLog(EDisplayState displayState, string clickedTag, string displayable)
         {
             // Timestamp method from: https://stackoverflow.com/a/61212918
             string unixTimestamp = Convert.ToString((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);

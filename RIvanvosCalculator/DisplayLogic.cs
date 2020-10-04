@@ -25,6 +25,9 @@ namespace RIvanvosCalculator
             this.AllEmpty();
         }
 
+        /**
+         * Clear all text boxes
+         */
         public void AllEmpty()
         {
             this.oldest.Text = "";
@@ -32,6 +35,10 @@ namespace RIvanvosCalculator
             this.current.Text = "";
         }
 
+        /**
+         * Append the string inptut to the `current` TextBlock and push the history 
+         * to `older` and `oldest`
+         */
         public void AppendText(string appendable)
         {
             this.oldest.Text = this.older.Text;
@@ -42,6 +49,9 @@ namespace RIvanvosCalculator
             this.combine = true;
         }
 
+        /**
+         * Replace the `TextBlock current` text with the function input string
+         */
         public void ReplaceCurrent(string repalcement)
         {
             // Check if we need to save the last result

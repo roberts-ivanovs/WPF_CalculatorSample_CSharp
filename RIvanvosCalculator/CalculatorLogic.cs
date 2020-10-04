@@ -3,9 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace RIvanvosCalculator
 {
+    /**
+     * Perform string evaluation.
+     */
     class CalculatorLogic
     {
 
+        // Find 
         private static readonly Regex FACTORTIAL_TOKEN = new Regex(@"(\d+!|(\({1}(\d|\+|\-|!)+\)!))");
         private string ExpressionCurrent { get; set; } = "";
 
@@ -18,6 +22,10 @@ namespace RIvanvosCalculator
         }
 
 
+        /**
+         * Clear the current expression.
+         * @returns current expression (cleared)
+         */
         public string ClearCurrent()
         {
             this.ExpressionCurrent = "";
@@ -28,12 +36,17 @@ namespace RIvanvosCalculator
             this.ClearCurrent();
             return this.ExpressionCurrent;
         }
+
+        /**
+         * Try calculating the current expression
+         * @returns current expression (calculated) or "ERROR" string if something went wrong
+         */
         public string Result()
         {
             string result = "";
             try
             {
-                // Explicitly handle factorials
+                // Explicitly handle factorials because `Evaluate` method has no operand for them.
                 string parsed_result = EvaluateUnknownFactorials(this.ExpressionCurrent);
 
                 result = CalculatorLogic.Evaluate(parsed_result).ToString();
@@ -52,17 +65,31 @@ namespace RIvanvosCalculator
             //this.ClearCurrent();
             return result;
         }
+
+        /**
+         * Swap the signs for the current expression
+         * @returns current expresion (with swapped signs as an expression)
+         */
         public string SwapSigns()
         {
             this.ExpressionCurrent = "-(" + this.ExpressionCurrent + ")";
             return this.ExpressionCurrent;
         }
+
+        /**
+         * Append a string value to the current expression
+         * @returns current expression (with appended value)
+         */
         public string AppendExpression(String appendable)
         {
             this.ExpressionCurrent += appendable;
             return this.ExpressionCurrent;
         }
 
+        /**
+         * Delete last character from the current expression if possible
+         * @returns current expression (with the last char removed if possible)
+         */
         public string Backspace()
         {
             if (this.ExpressionCurrent.Length > 0)
@@ -75,9 +102,14 @@ namespace RIvanvosCalculator
         /* -------------- PRIVATE METHODS --------------- */
 
 
-        /* Copied over from https://stackoverflow.com/a/6052679
+        /**
+         * Evalue the input expression into a numeric value
+         * Copied over from https://stackoverflow.com/a/6052679
+         * 
+         * Note: Does not support factorial operands `!`
          * 
          * It would be nice to hear in the next upcoming lectures on what is actually happening here.
+         * @returns evaluated result as a float
          */
         private static float Evaluate(string expression)
         {
@@ -88,10 +120,12 @@ namespace RIvanvosCalculator
             return float.Parse((string)row["expression"]);
         }
 
-        /*
+        /**
          * Find every factorial in a substring and evaluate it. Works recursevly.
          * Once the factorial has been evaluated -> replace the expression in 
          * the input string with the calculated value, return the altered string.
+         * 
+         * @returns Expression where all factorials have been evaluted
          */
         private static string EvaluateUnknownFactorials(string expression)
         {
@@ -99,22 +133,29 @@ namespace RIvanvosCalculator
             CaptureCollection captures = match.Captures;
             foreach (Capture capture in captures)
             {
-                // remove the '!'
+                // remove the '!' with the substring
+                // Perform recursive check for other factorials
                 string group_substring = EvaluateUnknownFactorials(capture.Value.Substring(0, capture.Value.Length - 1));
                 long localResult = (long)CalculatorLogic.Evaluate(group_substring);
                 long localResultFact = CalculatorLogic.Factorial(localResult);
                 expression = DirtyReplace(expression, localResultFact.ToString(), capture.Value, capture.Index);
             }
 
+            // Sanity check for making sure that no factorials are left. The need for this extra check can be 
+            // eliminated if unittests are created to prove that such construction has no need
             return expression.Contains("!") ? EvaluateUnknownFactorials(expression) : expression;
         }
 
+        /**
+         * Calculate the factorial of the given number
+         * @returns factorial of `i`
+         */
         private static long Factorial(long i)
         {
             return i <= 1 ? i : i * Factorial(i - 1);
         }
 
-        /*
+        /**
          * Replace a substring within the `longString` located at `index` with the length 
          * of `originalSubstring` and a new value of `insertable`.
          */

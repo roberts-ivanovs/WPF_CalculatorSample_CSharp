@@ -19,11 +19,23 @@ namespace RIvanvosCalculator
             this.display = new DisplayLogic(textDisplayPrevious, textDisplayExpression, textDisplayResult);
         }
 
+        /**
+         * Perform actions based on the associated Tag on the button
+         * 
+         * Supported tag actions:
+         *  - clearCurrent
+         *  - clearAll
+         *  - result            // perform string evaluation into a number
+         *  - swapSigns
+         *  - CONV:EUR:USD
+         *  - CONV:USD:EUR
+         *  - backspace
+         *  
+         *  All other tags will be interpreted as raw input for calculation parsing
+         */
         private void BtnGeneric_Click(object sender, RoutedEventArgs e)
         {
             string buttonValue = (((Button)sender).Tag.ToString());
-            Console.WriteLine("Clicked tag: " + buttonValue); // Left for easier debugging purposes
-
             EDisplayState displayAction;  // How the display should be handled
             string displayable = "";  // Represent the string to display on the next "render" for the calculator
 
